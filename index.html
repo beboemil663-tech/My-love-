@@ -1,0 +1,863 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>بنوتي و روح قلبي و حب عمري ♥️🫂</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Amiri:ital,wght@0,400;0,700;1,400&family=Aref+Ruqaa:wght@400;700&family=Cairo:wght@400;600;700;900&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --burgundy: #800020;
+            --burgundy-light: #a30b32;
+            --burgundy-dark: #540014;
+            --bg-white: #ffffff;
+            --soft-pink: #fff0f3;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            background-color: var(--bg-white);
+            color: var(--burgundy);
+            font-family: 'Cairo', sans-serif;
+            overflow-x: hidden;
+            position: relative;
+            min-height: 100vh;
+        }
+
+        /* مطر القلوب المستمر */
+        #hearts-rain {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 1;
+            overflow: hidden;
+        }
+
+        .falling-item {
+            position: absolute;
+            top: -50px;
+            color: var(--burgundy);
+            animation: fall linear forwards;
+            user-select: none;
+            opacity: 0.85;
+        }
+
+        @keyframes fall {
+            to {
+                transform: translateY(110vh) rotate(360deg);
+            }
+        }
+
+        /* قلوب ثابتة تزين جوانب الصفحة */
+        .side-decorations {
+            position: fixed;
+            top: 0;
+            bottom: 0;
+            width: 45px;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-around;
+            align-items: center;
+            pointer-events: none;
+            z-index: 2;
+            font-size: 1.4rem;
+            color: var(--burgundy);
+            opacity: 0.7;
+        }
+        .side-left { left: 5px; }
+        .side-right { right: 5px; }
+
+        /* خلفية الكتابة المتكررة في الصفحة كلها */
+        .bg-watermark-container {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 0;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-around;
+            opacity: 0.08;
+            overflow: hidden;
+            padding: 20px;
+        }
+
+        .bg-watermark-text {
+            font-family: 'Aref Ruqaa', serif;
+            font-size: 1.6rem;
+            color: var(--burgundy);
+            text-align: center;
+            line-height: 1.8;
+            transform: rotate(-5deg);
+        }
+
+        /* شاشة تسجيل الدخول */
+        #login-screen {
+            position: fixed;
+            inset: 0;
+            background: rgba(255, 255, 255, 0.94);
+            z-index: 100;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+            text-align: center;
+            transition: opacity 0.8s ease, visibility 0.8s ease;
+        }
+
+        .login-header {
+            font-family: 'Aref Ruqaa', serif;
+            font-size: clamp(1.3rem, 4vw, 2rem);
+            color: var(--burgundy);
+            max-width: 750px;
+            line-height: 1.9;
+            margin-bottom: 30px;
+            text-shadow: 0 2px 10px rgba(128, 0, 32, 0.15);
+            z-index: 5;
+        }
+
+        /* قلب الباسوورد الكبير */
+        .heart-login-wrapper {
+            position: relative;
+            width: 320px;
+            height: 300px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            z-index: 5;
+            filter: drop-shadow(0 15px 25px rgba(128, 0, 32, 0.4));
+            animation: heartbeat 2s infinite;
+        }
+
+        .heart-svg-bg {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            fill: var(--burgundy);
+            z-index: -1;
+        }
+
+        .heart-m-letter {
+            font-family: 'Amiri', serif;
+            font-size: 3.5rem;
+            font-weight: bold;
+            color: #ffffff;
+            margin-top: -15px;
+            line-height: 1;
+            text-shadow: 0 2px 8px rgba(0,0,0,0.3);
+        }
+
+        .password-input {
+            width: 160px;
+            padding: 8px 12px;
+            margin-top: 8px;
+            border: 2px solid #ffffff;
+            border-radius: 25px;
+            background: rgba(255, 255, 255, 0.95);
+            color: var(--burgundy);
+            font-family: 'Cairo', sans-serif;
+            font-size: 1.1rem;
+            font-weight: bold;
+            text-align: center;
+            outline: none;
+        }
+
+        .login-btn {
+            margin-top: 10px;
+            padding: 6px 24px;
+            border: none;
+            border-radius: 20px;
+            background: #ffffff;
+            color: var(--burgundy);
+            font-family: 'Cairo', sans-serif;
+            font-weight: 900;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: transform 0.2s, background 0.2s;
+        }
+
+        .login-btn:hover {
+            transform: scale(1.08);
+            background: var(--soft-pink);
+        }
+
+        #error-msg {
+            margin-top: 25px;
+            max-width: 600px;
+            background: var(--soft-pink);
+            border: 2px solid var(--burgundy);
+            padding: 15px 20px;
+            border-radius: 15px;
+            font-weight: 700;
+            font-size: 1.1rem;
+            color: var(--burgundy);
+            display: none;
+            z-index: 5;
+            animation: shake 0.4s ease;
+        }
+
+        @keyframes shake {
+            0%, 100% { transform: translateX(0); }
+            25% { transform: translateX(-8px); }
+            75% { transform: translateX(8px); }
+        }
+
+        /* انفجار القلوب */
+        .explosion-heart {
+            position: fixed;
+            font-size: 2rem;
+            pointer-events: none;
+            z-index: 9999;
+            animation: explode 1.5s ease-out forwards;
+        }
+
+        @keyframes explode {
+            0% {
+                transform: translate(0, 0) scale(0.5);
+                opacity: 1;
+            }
+            100% {
+                transform: translate(var(--tx), var(--ty)) scale(1.5) rotate(360deg);
+                opacity: 0;
+            }
+        }
+
+        /* المحتوى الرئيسي */
+        #main-content {
+            display: none;
+            position: relative;
+            z-index: 3;
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 40px 25px 80px;
+            text-align: center;
+        }
+
+        .section-box {
+            margin-bottom: 50px;
+            position: relative;
+        }
+
+        /* العداد */
+        .counter-title {
+            font-family: 'Aref Ruqaa', serif;
+            font-size: clamp(1.3rem, 3.5vw, 1.9rem);
+            line-height: 1.8;
+            margin-bottom: 20px;
+            color: var(--burgundy);
+        }
+
+        .timer-grid {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            flex-wrap: wrap;
+        }
+
+        .timer-card {
+            background: var(--burgundy);
+            color: #ffffff;
+            padding: 15px 20px;
+            border-radius: 18px;
+            min-width: 100px;
+            box-shadow: 0 8px 20px rgba(128, 0, 32, 0.3);
+            border: 2px solid var(--burgundy-light);
+        }
+
+        .timer-num {
+            font-size: 2rem;
+            font-weight: 900;
+            display: block;
+        }
+
+        .timer-label {
+            font-size: 0.95rem;
+            opacity: 0.9;
+        }
+
+        /* القلوب التفاعلية الكبيرة */
+        .interactive-heart-btn {
+            position: relative;
+            width: 310px;
+            height: 290px;
+            margin: 0 auto;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: transform 0.3s ease;
+            filter: drop-shadow(0 12px 22px rgba(128, 0, 32, 0.35));
+            padding: 35px 45px;
+        }
+
+        .interactive-heart-btn:hover {
+            transform: scale(1.05);
+        }
+
+        .interactive-heart-btn svg {
+            position: absolute;
+            inset: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+        }
+
+        .heart-btn-text {
+            color: #ffffff;
+            font-family: 'Aref Ruqaa', serif;
+            font-size: 1.25rem;
+            line-height: 1.6;
+            text-align: center;
+            z-index: 2;
+            margin-top: -15px;
+            text-shadow: 0 2px 5px rgba(0,0,0,0.4);
+        }
+
+        /* تأثير اللمعان للقلوب */
+        .glowing-heart {
+            animation: glowPulse 2s infinite alternate;
+        }
+
+        @keyframes glowPulse {
+            from {
+                filter: drop-shadow(0 0 10px rgba(128, 0, 32, 0.5));
+                transform: scale(1);
+            }
+            to {
+                filter: drop-shadow(0 0 25px rgba(220, 20, 60, 0.95));
+                transform: scale(1.04);
+            }
+        }
+
+        @keyframes heartbeat {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.04); }
+        }
+
+        /* صناديق الرسائل المخفية */
+        .reveal-box {
+            display: none;
+            margin-top: 25px;
+            background: rgba(255, 240, 243, 0.95);
+            border: 3px solid var(--burgundy);
+            border-radius: 22px;
+            padding: 25px;
+            box-shadow: 0 10px 30px rgba(128, 0, 32, 0.2);
+            text-align: center;
+        }
+
+        .typewriter-text {
+            font-size: 1.2rem;
+            line-height: 2;
+            font-weight: 700;
+            color: var(--burgundy-dark);
+            white-space: pre-wrap;
+        }
+
+        .reveal-img {
+            max-width: 100%;
+            max-height: 400px;
+            border-radius: 18px;
+            border: 4px solid var(--burgundy);
+            margin-bottom: 20px;
+            box-shadow: 0 8px 20px rgba(0,0,0,0.2);
+        }
+
+        /* إيموجي القلب الكبير لرقم 289 */
+        .big-emoji-heart-box {
+            display: none;
+            margin: 25px auto 0;
+            background: radial-gradient(circle, #a30b32 0%, #800020 100%);
+            color: #ffffff;
+            border-radius: 40px;
+            padding: 35px 25px;
+            max-width: 650px;
+            border: 4px dashed #ffffff;
+            box-shadow: 0 0 30px rgba(128, 0, 32, 0.6);
+            position: relative;
+        }
+
+        .big-emoji-icon {
+            font-size: 4rem;
+            display: block;
+            margin-bottom: 10px;
+            animation: heartbeat 1.5s infinite;
+        }
+
+        .big-emoji-text {
+            font-size: 1.25rem;
+            font-weight: 700;
+            line-height: 1.9;
+        }
+
+        /* مربع التواريخ والذكريات */
+        .dates-square {
+            background: rgba(255, 255, 255, 0.92);
+            border: 4px solid var(--burgundy);
+            border-radius: 25px;
+            padding: 35px 20px;
+            position: relative;
+            box-shadow: 0 12px 35px rgba(128, 0, 32, 0.25);
+        }
+
+        .dates-square::before {
+            content: "♥️ 🫂 ♥️ 🫂 ♥️ 🫂 ♥️ 🫂 ♥️";
+            display: block;
+            font-size: 1.3rem;
+            margin-bottom: 15px;
+            letter-spacing: 5px;
+        }
+
+        .dates-square::after {
+            content: "♥️ 🫂 ♥️ 🫂 ♥️ 🫂 ♥️ 🫂 ♥️";
+            display: block;
+            font-size: 1.3rem;
+            margin-top: 20px;
+            letter-spacing: 5px;
+        }
+
+        .date-item-row {
+            margin: 20px 0;
+        }
+
+        .date-label {
+            font-size: 1.2rem;
+            font-weight: 800;
+            margin-bottom: 10px;
+            color: var(--burgundy);
+        }
+
+        .date-heart-badge {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            background: linear-gradient(135deg, #a30b32, #800020);
+            color: #ffffff;
+            padding: 12px 28px;
+            border-radius: 50px;
+            font-size: 1.2rem;
+            font-weight: 900;
+            margin: 6px;
+            box-shadow: 0 0 18px rgba(163, 11, 50, 0.7);
+            animation: glowPulse 1.8s infinite alternate;
+            border: 2px solid #ffccd5;
+        }
+
+        .sub-dates-grid {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 10px;
+            margin-top: 15px;
+        }
+
+        /* مربع الصور الـ 8 */
+        .gallery-box {
+            background: rgba(255, 240, 243, 0.9);
+            border: 4px solid var(--burgundy);
+            border-radius: 25px;
+            padding: 30px 20px;
+            box-shadow: 0 12px 30px rgba(128, 0, 32, 0.25);
+        }
+
+        .gallery-title {
+            font-family: 'Aref Ruqaa', serif;
+            font-size: 1.4rem;
+            line-height: 1.9;
+            margin-bottom: 25px;
+            color: var(--burgundy);
+        }
+
+        .photos-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 18px;
+        }
+
+        .photo-card {
+            border-radius: 18px;
+            overflow: hidden;
+            border: 3px solid var(--burgundy);
+            box-shadow: 0 6px 15px rgba(128, 0, 32, 0.25);
+            background: #fff;
+            aspect-ratio: 1 / 1;
+        }
+
+        .photo-card img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.4s ease;
+        }
+
+        .photo-card:hover img {
+            transform: scale(1.07);
+        }
+
+        /* تذييل الصفحة بالجملة المتكررة */
+        .page-footer-love {
+            margin-top: 50px;
+            padding: 25px;
+            background: var(--burgundy);
+            color: #ffffff;
+            border-radius: 20px;
+            font-family: 'Aref Ruqaa', serif;
+            font-size: 1.5rem;
+            line-height: 1.9;
+            box-shadow: 0 10px 25px rgba(128, 0, 32, 0.4);
+        }
+    </style>
+</head>
+<body>
+
+    <!-- ملف الأغنية -->
+    <audio id="bg-music" loop>
+        <source src="song.mp3" type="audio/mpeg">
+    </audio>
+
+    <!-- مطر القلوب -->
+    <div id="hearts-rain"></div>
+
+    <!-- قلوب الجوانب -->
+    <div class="side-decorations side-left">
+        <span>♥️</span><span>🫂</span><span>♥️</span><span>🫂</span><span>♥️</span><span>🫂</span><span>♥️</span>
+    </div>
+    <div class="side-decorations side-right">
+        <span>♥️</span><span>🫂</span><span>♥️</span><span>🫂</span><span>♥️</span><span>🫂</span><span>♥️</span>
+    </div>
+
+    <!-- خلفية الكلام المكتوب في الصفحة كلها -->
+    <div class="bg-watermark-container" id="watermark-bg"></div>
+
+    <!-- 1. شاشة تسجيل الدخول -->
+    <div id="login-screen">
+        <div class="login-header">
+            بنوتي و روح قلبي و حب عمري ♥️♥️🥰🫂<br>
+            دي مفاجاة بسيطة ينور عيني بمناسبة اجمل يوم في العالم كلو ينور عيني يوم ما حياتي نورت حرفيا ♥️♥️🥰🫂
+        </div>
+
+        <div class="heart-login-wrapper">
+            <svg class="heart-svg-bg" viewBox="0 0 32 29.6">
+                <path d="M23.6,0c-3.4,0-6.3,2.7-7.6,5.6C14.7,2.7,11.8,0,8.4,0C3.8,0,0,3.8,0,8.4c0,9.4,9.5,11.9,16,21.2c6.1-9.3,16-12.1,16-21.2C32,3.8,28.2,0,23.6,0z"/>
+            </svg>
+            <div class="heart-m-letter">M</div>
+            <input type="password" id="pass-input" class="password-input" placeholder="الباسوورد يروحي">
+            <button class="login-btn" onclick="checkPassword()">دخول ♥️</button>
+        </div>
+
+        <div id="error-msg">
+            الباسوورد غلط يروحي جربي تاني ده احسن يوم في الدنيا كلها تاريخ الباسوورد ده يوم ما القمر نزل الارض ♥️♥️🥰🫂
+        </div>
+    </div>
+
+    <!-- 2. الصفحة الرئيسية -->
+    <div id="main-content">
+
+        <!-- العداد -->
+        <div class="section-box">
+            <div class="counter-title">
+                مع بعض و حبنا بيكبر ينور عيني لينا ♥️♥️♥️♥️🥰🫂🌚<br>
+                و عقبال المليون سنة ينور عيني مع بعض ♥️♥️♥️🥰🫂🌚
+            </div>
+            <div class="timer-grid">
+                <div class="timer-card"><span class="timer-num" id="days">0</span><span class="timer-label">يوم</span></div>
+                <div class="timer-card"><span class="timer-num" id="hours">0</span><span class="timer-label">ساعة</span></div>
+                <div class="timer-card"><span class="timer-num" id="minutes">0</span><span class="timer-label">دقيقة</span></div>
+                <div class="timer-card"><span class="timer-num" id="seconds">0</span><span class="timer-label">ثانية</span></div>
+            </div>
+        </div>
+
+        <!-- القلب الأول بعد العداد: قلب بسهم (رسالة الـ 6 شهور كاملة بالحرف) -->
+        <div class="section-box">
+            <div class="interactive-heart-btn glowing-heart" onclick="openTypewriterSection('box-6months', 'text-6months', msg6Months)">
+                <svg viewBox="0 0 120 110">
+                    <!-- قلب -->
+                    <path fill="#800020" d="M88,10c-12.7,0-23.6,10.1-28,21C55.6,20.1,44.7,10,32,10C14.8,10,1,23.8,1,41c0,35.2,35.6,44.6,59,79c22.8-34.8,59-45.3,59-79C119,23.8,105.2,10,88,10z"/>
+                    <!-- سهم رومانسي -->
+                    <line x1="5" y1="95" x2="115" y2="15" stroke="#ffccd5" stroke-width="4" stroke-linecap="round"/>
+                    <polygon points="118,12 104,15 112,25" fill="#ffccd5"/>
+                    <polygon points="5,95 14,95 12,86" fill="#ffccd5"/>
+                </svg>
+                <div class="heart-btn-text">رسالة بسيطة لمراتي و روح قلبي ♥️♥️🥰🫂</div>
+            </div>
+            <div id="box-6months" class="reveal-box">
+                <div id="text-6months" class="typewriter-text"></div>
+            </div>
+        </div>
+
+        <!-- القلب الثاني: اول كلمة بحبك + صورة 1 -->
+        <div class="section-box">
+            <div class="interactive-heart-btn" onclick="openTypewriterSection('box-first-love', 'text-first-love', msgFirstLove)">
+                <svg viewBox="0 0 32 29.6">
+                    <path fill="#800020" d="M23.6,0c-3.4,0-6.3,2.7-7.6,5.6C14.7,2.7,11.8,0,8.4,0C3.8,0,0,3.8,0,8.4c0,9.4,9.5,11.9,16,21.2c6.1-9.3,16-12.1,16-21.2C32,3.8,28.2,0,23.6,0z"/>
+                </svg>
+                <div class="heart-btn-text">اول كلمة بحبك قولتهالي ينور عيني ♥️♥️🥰🫂🌚</div>
+            </div>
+            <div id="box-first-love" class="reveal-box">
+                <img src="1.jpg" onerror="this.src='1.png'" alt="اول كلمة بحبك" class="reveal-img">
+                <div id="text-first-love" class="typewriter-text"></div>
+            </div>
+        </div>
+
+        <!-- مربع التواريخ والذكريات -->
+        <div class="section-box">
+            <div class="dates-square">
+                <div class="date-item-row">
+                    <div class="date-label">اول مقابلة بينا يروح قلبي ♥️🥺 :</div>
+                    <div class="date-heart-badge">28\5\2026</div>
+                </div>
+                <div class="date-item-row">
+                    <div class="date-label">ثاني مقابلة بينا ينور عيني ♥️🌚 :</div>
+                    <div class="date-heart-badge">3\6\2026</div>
+                </div>
+                <div class="date-item-row">
+                    <div class="date-label">اول بوسة و اول حضن ♥️♥️🥰🫂 :</div>
+                    <div class="date-heart-badge">25\6\2026</div>
+                </div>
+
+                <hr style="border: 1px dashed #800020; margin: 25px 0;">
+
+                <div class="date-label" style="font-size: 1.3rem;">
+                    تواريخ مقابلتنا كلها ينور عيني و احلي ايام عمري اصلا ينور عيني يوم ما بشوفك كدة ♥️♥️🥰🫂🌚 :
+                </div>
+                <div class="sub-dates-grid">
+                    <div class="date-heart-badge">30\6\2026 ♥️🥰🫂</div>
+                    <div class="date-heart-badge">2\7\2026 ♥️🥰🫂</div>
+                    <div class="date-heart-badge">5\7\2026 ♥️🌚🫂</div>
+                    <div class="date-heart-badge">9\7\2026 ♥️♥️😍</div>
+                    <div class="date-heart-badge">12\7\2026 ♥️😍🫂</div>
+                    <div class="date-heart-badge">19\7\2026 ♥️🥰😍</div>
+                    <div class="date-heart-badge">17\10\2026 ♥️♥️🫂🌚</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- القلب الرابع: عدد مرات التفكير 289 -->
+        <div class="section-box">
+            <div class="interactive-heart-btn glowing-heart" onclick="document.getElementById('box-289').style.display='block'">
+                <svg viewBox="0 0 32 29.6">
+                    <path fill="#800020" d="M23.6,0c-3.4,0-6.3,2.7-7.6,5.6C14.7,2.7,11.8,0,8.4,0C3.8,0,0,3.8,0,8.4c0,9.4,9.5,11.9,16,21.2c6.1-9.3,16-12.1,16-21.2C32,3.8,28.2,0,23.6,0z"/>
+                </svg>
+                <div class="heart-btn-text">عدد المرات اللي فكرت فيكي ينور عيني من يوم ١٤ اللي فات بس ♥️♥️😂🫂</div>
+            </div>
+            <div id="box-289" class="big-emoji-heart-box">
+                <span class="big-emoji-icon">♥️</span>
+                <div class="big-emoji-text">
+                    289 عدد المرات اللي فكرت فيكي فيها ينور عيني و ابتمست لوحدي حرفيا من حبي ليكي اللي بيخليني افرح مجرد ما تيجي في بالي يحبي ♥️♥️♥️🫂🌚 و بامانة بعدهم من يوم ١٤ اللي فات كدة علشان عامل حسابي هحتاجهم دلوقتي كدة في المفاجئه ♥️♥️😂😂🫂
+                </div>
+            </div>
+        </div>
+
+        <!-- القلب الخامس: كلمتين من قلبي -->
+        <div class="section-box">
+            <div class="interactive-heart-btn" onclick="openTypewriterSection('box-words', 'text-words', msgWordsFromHeart)">
+                <svg viewBox="0 0 32 29.6">
+                    <path fill="#800020" d="M23.6,0c-3.4,0-6.3,2.7-7.6,5.6C14.7,2.7,11.8,0,8.4,0C3.8,0,0,3.8,0,8.4c0,9.4,9.5,11.9,16,21.2c6.1-9.3,16-12.1,16-21.2C32,3.8,28.2,0,23.6,0z"/>
+                </svg>
+                <div class="heart-btn-text">كلمتين من قلبي لمراتي و روح قلبي و نور عيني ♥️♥️♥️♥️🌚🫂</div>
+            </div>
+            <div id="box-words" class="reveal-box">
+                <div id="text-words" class="typewriter-text"></div>
+            </div>
+        </div>
+
+        <!-- القلب السادس: وعد مني ليكي -->
+        <div class="section-box">
+            <div class="interactive-heart-btn" onclick="document.getElementById('box-promise').style.display='block'">
+                <svg viewBox="0 0 32 29.6">
+                    <path fill="#800020" d="M23.6,0c-3.4,0-6.3,2.7-7.6,5.6C14.7,2.7,11.8,0,8.4,0C3.8,0,0,3.8,0,8.4c0,9.4,9.5,11.9,16,21.2c6.1-9.3,16-12.1,16-21.2C32,3.8,28.2,0,23.6,0z"/>
+                </svg>
+                <div class="heart-btn-text">وعد مني ليكي ينور عيني ♥️♥️🌚🫂</div>
+            </div>
+            <div id="box-promise" class="reveal-box">
+                <div class="typewriter-text">
+                    وعد مني يا روح قلبي و حياة غلاوتك عندي انك طول العمر مش هتشوفي مني غير حنية و دلع و طبطبة و حب بس كدة يروح قلبي ♥️♥️♥️🌚🌚🫂 انتي بنتي يموزتي اصلا و عايزك دايما مبسوطة و فرحانة و يعمري ♥️♥️🥰🫂🌚 و و عدي مني يا روح قلبي اني دايما في ضهرك و معاكي في اي حاجة ينور عيني و تعتبريني ضهرك في اي حاجة ينور عيني ♥️♥️♥️🥰🫂🌚 و عمرك ما هتاحتيجني و متلاقينيش يروحي انا عايش علشانك انتي و بس اصلا يروح قلبي 🥰♥️♥️♥️🥰🫂🌚🌚 و اوعدك طول عمري ينور عيني هكون احن عليكي من نفسك يا روح قلبي اصلا علشان بمووووووت فيكي بجد ♥️♥️♥️♥️♥️♥️🥰🫂🫂🌚 و عايزك تعرفي ينور عيني اني هفضل طول العمر يروح قلبي احن و اطيب قلب عليكي يموزتي علشان بعشقك حرفيا يروحي و هكون حنبك و في ضهرك يروحي طول الوقت و تعرفي برضو يموزتي ان في الدنيا دي كلها حرفيا يموزتي محدش هيحبك ولا يخاف عليكي قدي ينور عيني انتي حتة مني بجد حرفيا ♥️♥️♥️🥰🫂🫂
+                </div>
+            </div>
+        </div>
+
+        <!-- مربع الـ 8 صور (من 2 إلى 9) -->
+        <div class="section-box">
+            <div class="gallery-box">
+                <div class="gallery-title">
+                    صورنا سوا ينور عيني و روح قلبي و كل دنيتي انتي يموزتي ♥️♥️🥰🫂 و كلهم ذكريات حلوة وتحفة حرفيا يموزتي اينعم في منهم ذكاء اصطناعي بس تحفة برضو يروح قلبي كفاية اننا سوا فيهم ينور عيني ♥️♥️♥️♥️🥰🥰🫂🌚
+                </div>
+                <div class="photos-grid">
+                    <div class="photo-card"><img src="2.jpg" onerror="this.src='2.png'" alt="صورة 2"></div>
+                    <div class="photo-card"><img src="3.jpg" onerror="this.src='3.png'" alt="صورة 3"></div>
+                    <div class="photo-card"><img src="4.jpg" onerror="this.src='4.png'" alt="صورة 4"></div>
+                    <div class="photo-card"><img src="5.jpg" onerror="this.src='5.png'" alt="صورة 5"></div>
+                    <div class="photo-card"><img src="6.jpg" onerror="this.src='6.png'" alt="صورة 6"></div>
+                    <div class="photo-card"><img src="7.jpg" onerror="this.src='7.png'" alt="صورة 7"></div>
+                    <div class="photo-card"><img src="8.jpg" onerror="this.src='8.png'" alt="صورة 8"></div>
+                    <div class="photo-card"><img src="9.jpg" onerror="this.src='9.png'" alt="صورة 9"></div>
+                </div>
+            </div>
+        </div>
+
+        <!-- جملة الحب في أسفل الصفحة -->
+        <div class="page-footer-love">
+            بحبك و بمووت فيكي و بعشقك يا روح قلبي ♥️♥️🥰🫂🌚<br>
+            و كل يوم ١٤ واحنا سوا و حنب بعض و في حضن بعض يروحي ♥️♥️♥️🥰🫂😍
+        </div>
+
+    </div>
+
+    <script>
+        // النصوص الكاملة بالمللي
+        const msg6Months = `انهاردة يا روح قابي كملنا ٦ شهور سوا بالظبط ينور عيني ♥️♥️♥️😍🫂 ٦ شهور يا روح قلبي حرفيا بعمري كلو ينور عيني احلي ٦ شهور في عمري كلو جنبك يا مراتي و حبيبتي و روح قلبي ♥️♥️♥️🥰🫂 لينا ١٨٠ يوم ينور عيني سوا كدة ♥️😍🫂 ١٨٠ يوم بنتكلم كل يوم حرفيا يا روح قلبي ♥️🥰 ١٨٠ يوم بنعيشهم سوا و كل يوم بنختار بعض من اول و جديد و حبنا بيكبر اكتر و اكتر يروحي ♥️♥️♥️🥰🫂 ١٨٠ يوم و انتي في ضهري و جنبي و بتسند عايكي دايما و بلاقيكي معايا في كل لحظة في حياتي سواء كانت نجاح او تفكير او زعل عمرك ما غبتي عني ينور عيني ♥️♥️♥️♥️🥰🫂😍 فرحان اووووي حرفيا ينور عيني ان لينا ٦ شهور سوا يروح قلبي و عقبال ال ١٠٠ مليون شهر سوا ينور عيني ♥️♥️♥️🥰🫂🌚 و كل يوم يموزتي كدة نفضل نختار بعض و نحب بعض اكتر و اكتر و نفضل سوا و ماسكين في بعض و بنحب بعض دايما ينور عيني ♥️♥️♥️🥰🫂 و حرفيا مش ناسي اي حاجة حرفيا يموزتي من ال ٦ شهور دول يموزتي كلامنا و هزارنا و لعبنا سوا يروحي و وقتنا سوا اللي حرفيا مفيش اجمل منه في اليوم كلو يروح قلبي ♥️♥️♥️🥰🫂🌚 انا بجد بحبك اوووووووووي يا روح قلبي و بعشقك حرفيا و مليش غيرك يعمري و مش عايز غيرك اصلا يا روح قلبي من الدنيا كلها ♥️♥️🥰🫂 وانا كل يوم حرفيا بقعد ادعي ربنا تفضلي النعمة الي منورة حياتي ينور عيني طول العمر ربنا يخليكي ليا يا اجمل ما في الدنيا كلها ينور عيني انتي يموزتي و روح قلبي ♥️♥️🥰🫂🌚 و حرفيا يموزتي شايفك مراتي و و حبيبتي و مختارك لعمري كلو و عايزك جنبي عمري كلو و مش هكمل عمري غير معاكي يروح قلبي انا بعشقك بجد و شايفك مش حبيبتي و بس انتي مراتي و دنيتي و ام عيالي و كل حياتي يا روح قلبي ♥️♥️♥️🥰🫂🌚 كل يوم ١٤ و انتي جنبي و في حضني و معايا طول العمري يروح قلبي ♥️♥️🥰🫂 و عقبال ما يجي اليوم يموزتي اللي نحتفل فيه باليوم ده في بيتنا يعمري و احنا متجوزين كدة ♥️♥️♥️😍🫂 
+بحبك بمووووووووت فيكي يا روح قلبي و بنوتي ♥️♥️♥️🥰🫂🌚`;
+
+        const msgFirstLove = `دي كانت اول كلمة بحبك منك ينور عيني و اجمل لحظة في حياتي حرفيا ينور عيني و اللي من بعدها حرفيا رجعت اعيش تاني كدة يعمري علي حسك و ب حبك ليا ده يموزتي و روح قلبي ♥️♥️♥️♥️🥰🫂🌚`;
+
+        const msgWordsFromHeart = `نفسي تعرفي ينور عيني انا بحبك قد ايه بجد يموزتي ♥️♥️♥️♥️🥺🫂 انا حرفيا بعشقك يا روح قلبي و بحبك اوووووووووووي حرفيا يا روح قلبي ♥️♥️♥️♥️🌚🫂 و بجد ينور عيني حرفيا مفيش حاجة تقدر توصف حبي ليكي يحياتي بجد ♥️♥️😍🫂 بجد يا روح قلبي انتي حتة مني حرفيا و جوايا دايما ربنا يخليكي ليا ينور عيني و روح قلبي و كل ما ليا انتي اادنيا يروحي اصلا و مفيش دنيا من غيرك يا روح قلبي ♥️♥️♥️🌚🫂 و عايز اقولك شكرا كييرة اووووي اووووي حرفيا يعمري علي كل لحظة احتاجتك فيها و كنتي حنبي ينور عيني انا بجد عمري ما حسيتك حنيتك عليا دي عند اي حد في الدنيا كلها انتي بجد ينور عيني حرفيا مفيش زيك ♥️♥️♥️♥️♥️🌚🫂😍`;
+
+        // ملء خلفية الصفحة بالجملة المتكررة
+        const watermarkContainer = document.getElementById('watermark-bg');
+        for (let i = 0; i < 8; i++) {
+            const div = document.createElement('div');
+            div.className = 'bg-watermark-text';
+            div.innerText = 'بحبك و بمووت فيكي و بعشقك يا روح قلبي ♥️♥️🥰🫂🌚 و كل يوم ١٤ واحنا سوا و حنب بعض و في حضن بعض يروحي ♥️♥️♥️🥰🫂😍';
+            watermarkContainer.appendChild(div);
+        }
+
+        // مطر القلوب المستمر مع 🫂
+        function createRainItem() {
+            const container = document.getElementById('hearts-rain');
+            const item = document.createElement('div');
+            item.className = 'falling-item';
+            const symbols = ['♥️', '🫂', '♥️', '♥️'];
+            item.innerText = symbols[Math.floor(Math.random() * symbols.length)];
+            item.style.left = Math.random() * 100 + 'vw';
+            item.style.fontSize = (Math.random() * 18 + 14) + 'px';
+            const duration = Math.random() * 4 + 4;
+            item.style.animationDuration = duration + 's';
+            container.appendChild(item);
+
+            setTimeout(() => {
+                item.remove();
+            }, duration * 1000);
+        }
+        setInterval(createRainItem, 250);
+
+        // التحقق من الباسوورد
+        document.getElementById('pass-input').addEventListener('keypress', function(e) {
+            if (e.key === 'Enter') checkPassword();
+        });
+
+        function checkPassword() {
+            const val = document.getElementById('pass-input').value.trim();
+            const errorMsg = document.getElementById('error-msg');
+
+            if (val === '622006') {
+                errorMsg.style.display = 'none';
+                triggerHeartExplosion();
+
+                // تشغيل الأغنية
+                const music = document.getElementById('bg-music');
+                music.play().catch(() => {});
+
+                setTimeout(() => {
+                    const loginScreen = document.getElementById('login-screen');
+                    loginScreen.style.opacity = '0';
+                    loginScreen.style.visibility = 'hidden';
+                    document.getElementById('main-content').style.display = 'block';
+                }, 900);
+            } else {
+                errorMsg.style.display = 'block';
+                errorMsg.style.animation = 'none';
+                errorMsg.offsetHeight; /* trigger reflow */
+                errorMsg.style.animation = 'shake 0.4s ease';
+            }
+        }
+
+        // انفجار قلوب عند الدخول الصحيح
+        function triggerHeartExplosion() {
+            const centerX = window.innerWidth / 2;
+            const centerY = window.innerHeight / 2;
+            const icons = ['♥️', '🫂', '🥰', '♥️'];
+
+            for (let i = 0; i < 65; i++) {
+                const heart = document.createElement('div');
+                heart.className = 'explosion-heart';
+                heart.innerText = icons[Math.floor(Math.random() * icons.length)];
+                heart.style.left = centerX + 'px';
+                heart.style.top = centerY + 'px';
+                heart.style.color = '#800020';
+
+                const angle = Math.random() * Math.PI * 2;
+                const distance = Math.random() * 450 + 80;
+                const tx = Math.cos(angle) * distance + 'px';
+                const ty = Math.sin(angle) * distance + 'px';
+
+                heart.style.setProperty('--tx', tx);
+                heart.style.setProperty('--ty', ty);
+
+                document.body.appendChild(heart);
+                setTimeout(() => heart.remove(), 1500);
+            }
+        }
+
+        // عداد الأيام من 14 مايو 2026
+        const startDate = new Date('2026-05-14T00:00:00').getTime();
+
+        function updateCounter() {
+            const now = new Date().getTime();
+            const diff = Math.max(0, now - startDate);
+
+            const days = Math.floor(diff / (1000 * 60 * 60 * 24));
+            const hours = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+            const minutes = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
+            const seconds = Math.floor((diff % (1000 * 60)) / 1000);
+
+            document.getElementById('days').innerText = days;
+            document.getElementById('hours').innerText = hours;
+            document.getElementById('minutes').innerText = minutes;
+            document.getElementById('seconds').innerText = seconds;
+        }
+        setInterval(updateCounter, 1000);
+        updateCounter();
+
+        // تأثير الآلة الكاتبة (يدعم الإيموجيز بشكل سليم)
+        const activeTypers = {};
+
+        function openTypewriterSection(boxId, textId, fullText) {
+            const box = document.getElementById(boxId);
+            const textEl = document.getElementById(textId);
+            box.style.display = 'block';
+
+            if (activeTypers[textId]) return; // منع التكرار إذا كانت تكتب بالفعل
+            activeTypers[textId] = true;
+
+            textEl.textContent = '';
+            const chars = Array.from(fullText); // تقسيم سليم للإيموجيز المركبة
+            let index = 0;
+
+            const interval = setInterval(() => {
+                if (index < chars.length) {
+                    textEl.textContent += chars[index];
+                    index++;
+                } else {
+                    clearInterval(interval);
+                }
+            }, 30);
+        }
+    </script>
+</body>
+</html>
